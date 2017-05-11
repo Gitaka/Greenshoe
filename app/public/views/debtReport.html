@@ -1,0 +1,59 @@
+<div class="row" data-ng-controller="DebtReportController">
+    <div class="userPage">
+      <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <strong>Debt Report</strong>
+            </div>
+            <div class="row" style="margin-top:5px">
+               <button id="btnExport"class="btn btn-primary">Export to excel</button>
+            </div>
+            <div class="panel-body">
+               <table class="table table-bordered table-hover table-responsive" id"exportDebtReport">
+                  <tr class="success">
+                      <td>ID</td>
+                      <td>Customer Name</td>
+                      <td>Customer ID</td>
+                      <td>Account No</td>
+                      <td>Loan Amount</td>
+                      <td>Loan Balance</td>
+                      <td>Issue Date</td>
+                      <td>Due Date</td>
+                      <td>Mobile Number</td>
+                  </tr>
+                  <tr ng-repeat="debtReport in debtReports">
+                        <td>
+                           {{debtReport.id}}
+                        </td>
+                        <td>
+                          {{debtReport.cust_name}}
+                       </td>
+                        <td>
+                            {{debtReport.cust_id}}
+                        </td>    
+                        <td >
+                            {{debtReport.cust_acno}}
+                        </td>    
+                        <td>
+                            {{debtReport.loan_amount}}
+                        </td> 
+                        <td>
+                           {{debtReport.loan_balance}}
+                        </td>   
+                        <td>
+                           {{debtReport.loan_issue_date}}
+                        </td>
+                        <td>
+                           {{debtReport.loan_due_date}}
+                        </td> 
+                        <td>
+                           {{debtReport.cust_mobile_number}}
+                        </td>                   
+                  </tr>
+
+               </table>
+            </div>
+        </div>
+     </div>
+    </div>
+</div>
