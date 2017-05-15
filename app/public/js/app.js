@@ -1,7 +1,6 @@
 
 (function() {
 
-
 	var app = angular.module('GreenShoe', [
 		'ngRoute',
 		'ngStorage',
@@ -36,8 +35,8 @@
 			});
 
 /*
-when ever we need to make a request to the backend on the protected routes,the token need to be out in the headers
-We've used angularJS interceptors to hijack the request and insert the bearer token to the authorization header field
+when ever we need to make a request to the server on the protected routes,the token needs to be out in the authorization header.
+angularJS interceptors are used to hijack the request and insert the bearer token to the authorization header field
 
 */
     $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {

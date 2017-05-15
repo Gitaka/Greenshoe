@@ -11,21 +11,6 @@ var connectionString = 'postgres://dev001:EV5gy2pQPDhC4H&fg3$5qzWL*9P4=D2K8ta9x&
 var client = new pg.Client(connectionString);
     client.connect();
 
-
-exports.welcome = function(req,res){
-
-     var query = client.query('SELECT * FROM tbl_users');
-          query.on("row",function(row,result){
-          	result.addRow(row);
-          });
-
-          query.on("end",function(result){
-              res.send({
-              	'data':result.rows,
-              });
-          });
-}
-
 exports.auth = function(req,res){
    var username = req.body.username;
        password = req.body.password;

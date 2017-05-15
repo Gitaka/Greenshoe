@@ -3,7 +3,7 @@ var index = require('../controllers/index.js');
 
 //api endpoints that angular js will call.
 module.exports = function(app){
-	app.get('/test',index.welcome);
+	
     app.post('/register',index.register);
     app.post('/authenticate',index.auth);
     app.get('/user',ensureAuthorized,index.getUser);
