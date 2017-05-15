@@ -11,11 +11,17 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" />
 <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
+<link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/datatables/media/css/dataTables.bootstrap4.min.css">
+
 
 
 
 <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'> -->
 <meta name="viewport" content="width=device-width, initial-scale = 1.0, user-scalable = no">
+
+
+
 </head>
 <body>
 <div class="wrapper">
@@ -28,26 +34,6 @@
 				</div>
 			</div>
 			
-			<div class="content-wrap" ng-controller="HomeController">
-				<div class="signin">
-					<!--<button type="button" class="btn btn-default btn-lg"data-ng-hide="token"><a href="#/signin">Sign In</a></button>-->
-		<a href="#/signin"><button type="button" class="btn btn-default btn-lg"data-ng-hide="token">Sign In</button></a>
-					
-				</div>
-				<div class="signin">
-					<button type="button" class="btn btn-default btn-lg" data-ng-show="token"><a href="#/customers">Customers</a></button>
-                    <button type="button" class="btn btn-default btn-lg" data-ng-show="token"><a href="#/debtReport">Debt Report</a></button>
-					
-				</div>
-				<div class="signup">
-					<button type="button" class="btn btn-default btn-lg"data-ng-hide="token"><a href="#/signup">Sign Up</a></button>
-				</div>
-				<div class="signup">
-				
-                    <button type="button" class="btn btn-default btn-lg"data-ng-show="token" ng-click="logout()">Sign Out</button>
-				</div>
-
-			</div>
 				
 		</div> <!-- end header -->
 		
@@ -86,16 +72,50 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="lib/jquery.table2excel.min.js"></script>
- 
+    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <!--<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>-->
+
+
+
 <script type="text/javascript">
+
+
+function getBaseUrl(){
+             var protocol = window.location.protocol;
+                 host =  window.location.host;
+                 pathname = window.location.pathname;
+  
+             var BASE_URL = protocol + "//" +host + "/";
+          return BASE_URL;
+         }
+var BASE_URL = getBaseUrl();
 $(document).ready(function(){
+       
+      $("#example1").dataTable({
+      	 "ajax": BASE_URL+'reports',
+      	  "columns": [
+            { "data": "id" },
+            { "data": "cust_name" },
+            { "data": "cust_id" },
+            { "data": "cust_acno" },
+            { "data": "loan_amount" },
+            { "data": "loan_balance" },
+            { "data": "loan_issue_date"},
+            { "data": "loan_due_date"},
+            { "data": "cust_mobile_number"}
+        ]
+      });
+
+
     $("#btnExport").click(function(){
+
           $('.table').table2excel({
           	  exclude:".noExl",
           	  filename: "Debt Report",  
               fileext: ".xls"
           });
        });
+
       
 });
 

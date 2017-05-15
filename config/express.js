@@ -17,7 +17,7 @@ module.exports = function(){
     app.use(compression);
   }
 
-
+  //json webtoken secret
   process.env.JWT_SECRET = 'SuperSecretGreenShoeCapital';
  
   
@@ -25,6 +25,7 @@ module.exports = function(){
     console.log(err);
   });
 
+  //configure express middleware
    app.use(express.static(path.join(__dirname,'../app/public')));
    
    app.use(bodyParser.urlencoded({

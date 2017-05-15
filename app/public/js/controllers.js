@@ -7,20 +7,22 @@ angular.module('GreenShoe')
 		                password: $scope.password
                       }
                      
-                     //console.log(formData);
-
+                //call the signin method of angular service, to aauthenticate user
 		            Main.signin(formData, function(res) {
 		                if (res.type == false) {
-		                    //alert(res) 
+		                    
 		                    console.log(res);   
 		                } else {
 
-		                   $localStorage.token = res.token;
-		                    
-		                   console.log(res);
+		                   if(res.error == true){
+		                  	$scope.errMessage = res.message;
+		                  }else{
+		                  	//if user is authenticated, store the token in local storage
+		                     $localStorage.token = res.token;
 
-		                   $location.path('user');
-		                   //$route.reload();
+		                     $location.path('user');//redirect to users page
+		                  }
+		                  console.log(res);
 
 		                }
 		            }, function() {
@@ -38,44 +40,28 @@ angular.module('GreenShoe')
 		           
 		            }
                     
-                    
+                     //console.log(formData);
 		            Main.save(formData, function(res) {
 		                if (res.type == false) {
 		                    alert(res.data)
 		                } else {
-		                   //$localStorage.token = res.data.token;
+		                   
 		                   $location.path('signin');   
 		                   console.log(res); 
 		                }
 		            }, function() {
 		                $rootScope.error = 'Failed to signup';
-		            })
+		            });
  
 	            };
 
-	                /*$scope.user = function() {
-			            Main.user(function(res) {
-			              
-			            if (res.type == false) {
-		                    alert(res.data)
-		                } else {
-		                    $scope.myDetails = res.data;
-		                    console.log("res.data"); 
-		                  }
-			            }, function() {
-			                $rootScope.error = 'Failed to fetch details';
-			            })
-			        };*/
 
 			         $scope.logout = function() {
 				            Main.logout(function() {
-				            	//delete $localStorage.token;
 
 				            	console.log("logged out");
-				                $location.path('/');
-				                $route.reload();
-
-				               
+				                
+				                window.location.href = "/#/signin";
 
 				            }, function() {
 				                alert("Failed to logout!");
@@ -90,12 +76,34 @@ angular.module('GreenShoe')
      .controller('UserController',['$rootScope','$scope','$location','Main',function($rootScope,$scope,$location,Main){
      	Main.user(function(res){
      		$scope.myDetails = res;
-     		console.log(res);
-        
+     		var role;
+     		if(res.data.role == 'roleA'){
+                role = false;
+            
+     		}else if(res.data.role == 'roleB'){
+     			role = true;
+     			
+     		}
+     		console.log(res.data);
+     		$rootScope.accessPriviledge = role;
+          
 
      	},function(){
      		$rootScope.error = 'Failed to fetch details';
      	});
+
+
+			$scope.logout = function() {
+				Main.logout(function() {
+
+				    console.log("logged out");
+				                
+				       window.location.href = "/#/signin";
+
+				     }, function() {
+				         alert("Failed to logout!");
+				      });
+		    };    	
 
 
    
