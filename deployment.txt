@@ -1,0 +1,24 @@
+The Application is written in nodejs,on the backend and angularjs on the fron end.
+Digital ocean was the VPS of choice, due to its seamless server setup and configurations.
+This guide, details steps taken to deploy the app and how to configure our digital ocean environment.
+
+Requirements: A digital ocean account.
+1) Create a digital ocean droplet,with ubuntu as the linux distribution of choice for our production server.
+2) Generate and set up SSH keys,for secure server login.
+3) Login to our server.
+4) To install the latest version of nodejs on our server, we install node from source by running the command;
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo aapt-get instal nodejs
+5) Install Git on the server by running; sudo apt-get install git
+6) Git clone the app from my github repo;
+   git clone https://github.com/Gitaka/Greenshoe.git
+   cd Greenshoe
+7) Install the required dependancies,using npm install.
+8) To run the app as a process,install pm2;
+   sudo npm install pm2 -g.
+9) Start the app by running pm2 start server.js from the root directory. 
+10) Access the app on the browser http://YOURIP:1337
+   
+
+ 
+
